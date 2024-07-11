@@ -80,4 +80,4 @@ This custom function creates a Toast message with different positioning options.
 
 These code snippets demonstrate proficiency in Kotlin programming and Android development. They showcase skills in handling permissions, managing UI elements, working with coroutines for background tasks, and creating custom UI components.
 
-For more detailed code examples and implementations, please refer to the accompanying Kotlin file in this repository.
+For more detailed code examples and implementations, please refer to the KotlinShowcaseExamples.kt file in this repository.
