@@ -11,117 +11,120 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 /**
- * This class demonstrates various Kotlin and Android development concepts.
- * It showcases best practices in Android app architecture, coroutines usage,
- * and Kotlin language features.
+ * This class demonstrates a simple Android app structure using Kotlin.
+ * It shows how different parts of an app work together:
+ * 1. The main activity (this class) controls the app's overall behavior.
+ * 2. UI elements (like buttons) that the user can interact with.
+ * 3. Background tasks (like checking battery) that run independently.
+ * 4. Helper functions that can be used throughout the app.
  */
 class KotlinShowcaseExamples : AppCompatActivity() {
 
+    // This function is called when the app starts.
+    // It sets up the initial state of the app.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // This line sets what the app looks like, linking to a layout file.
         setContentView(R.layout.activity_kotlin_showcase)
 
-        // Initialize UI components and set up the user interface
+        // Call other functions to set up different parts of the app.
         initializeUI()
-
-        // Start a background task to periodically check the battery
         scheduleRemoteBatteryCheck()
     }
 
     /**
-     * Initializes UI components and sets up click listeners.
-     * This function demonstrates how to interact with UI elements in Kotlin.
+     * This function sets up the user interface.
+     * It connects code to the visual elements that the user sees and interacts with.
      */
     private fun initializeUI() {
-        // Find the button in the layout using its ID
+        // Find a button in the layout and remember it for later use.
         val btnExample = findViewById<Button>(R.id.btn_example)
 
-        // Set up a click listener using a lambda expression
+        // Tell the button what to do when it's clicked.
+        // It will call another function (handleExampleButtonClick) when pressed.
         btnExample.setOnClickListener {
             handleExampleButtonClick()
         }
 
-        // More UI initializations can be added here...
+        // More UI setup can be added here...
     }
 
     /**
-     * Handles the click event of the example button.
-     * This function showcases how to respond to user interactions.
+     * This function is called when the example button is clicked.
+     * It shows how the app responds to user actions.
      */
     private fun handleExampleButtonClick() {
-        // Display a message using our custom showMessage function
+        // When the button is clicked, show a message to the user.
+        // This uses our custom showMessage function defined below.
         showMessage("Example button clicked!", "center")
     }
 
     /**
-     * Schedules a periodic battery check using Kotlin coroutines.
-     * This demonstrates how to perform background tasks efficiently in Android.
+     * This function sets up a repeating task to check the battery level.
+     * It shows how to do things in the background without interrupting the user.
      */
     private fun scheduleRemoteBatteryCheck() {
-        // Launch a coroutine in the lifecycle scope of the activity
+        // Start a background task that keeps running
         lifecycleScope.launch {
-            // Keep running as long as the coroutine is active
             while (isActive) {
-                // Wait for 60 seconds (1 minute)
+                // Wait for a minute
                 delay(BATTERY_CHECK_INTERVAL)
-                // Perform the battery check
+                // Then check the battery
                 performBatteryCheck()
+                // This will repeat until the app is closed
             }
         }
     }
 
     /**
-     * Simulates a battery check operation.
-     * In a real app, this would interact with the device's battery info.
+     * This function pretends to check the battery level.
+     * In a real app, it would actually check the device's battery.
+     * It's called repeatedly by the scheduleRemoteBatteryCheck function.
      */
     private fun performBatteryCheck() {
-        // Simulate getting a random battery level (0-100)
+        // Pretend to check the battery by picking a random number
         val batteryLevel = (0..100).random()
-        // Display the battery level using our custom showMessage function
+        // Show the "battery level" to the user
         showMessage("Battery level: $batteryLevel%", "top")
     }
 
     /**
-     * Displays a custom toast message with specified position.
-     * This function demonstrates how to create reusable UI components.
-     * 
-     * @param message The message to display
-     * @param position The position of the toast: "top", "center", or "bottom"
+     * This function shows a message to the user.
+     * It's a helper function used by other parts of the app to communicate with the user.
+     * Both handleExampleButtonClick and performBatteryCheck use this to show messages.
      */
     private fun showMessage(message: String, position: String) {
+        // Create a Toast (a small pop-up message)
         val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
-        // Set the position of the toast based on the input
+        
+        // Decide where to show the message based on the 'position' parameter
         when (position.toLowerCase()) {
             "top" -> toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 150)
             "center" -> toast.setGravity(Gravity.CENTER, 0, 0)
             else -> toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 150)
         }
+        
+        // Show the message
         toast.show()
     }
 
     /**
-     * Extension function for Context to show a toast message.
-     * This demonstrates how to create and use Kotlin extension functions.
-     * 
-     * @param message The message to display
-     * @param duration The duration of the toast (default is short)
+     * This is an extension function. It adds a new function to the Context class.
+     * It's another way to show messages, similar to showMessage above.
+     * It could be used instead of showMessage if we prefer.
      */
     fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, message, duration).show()
     }
 
     /**
-     * Data class example.
-     * This demonstrates how to create simple, immutable data holding classes in Kotlin.
-     */
-    data class User(val name: String, val age: Int)
-
-    /**
-     * Companion object for holding constant values and utility functions.
-     * This demonstrates how to use companion objects in Kotlin, which are similar to static members in Java.
+     * This companion object holds constants used elsewhere in the class.
+     * It's a way to keep important values in one place.
      */
     companion object {
+        // A tag for log messages (used for targeted debugging)
         private const val TAG = "KotlinShowcaseExamples"
+        // How often to check the battery (every 60 seconds)
         private const val BATTERY_CHECK_INTERVAL = 60000L // 60 seconds in milliseconds
     }
 }
