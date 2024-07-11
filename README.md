@@ -1,5 +1,7 @@
 # Kotlin Android App Showcase
 
+The OnGuard Surveillance App is currently in development and aims to provide enhanced security for parents, pet owners, and homeowners. The app integrates advanced features such as real-time camera and microphone streaming, call log fetching, and location tracking. Utilizing Kotlin, XML and Firebase, OnGuard offers a robust and reliable solution for real-time surveillance and monitoring.
+
 This repository demonstrates various Kotlin programming techniques and Android development concepts used in a video streaming application. The code snippets and explanations provided here showcase my Kotlin skills and understanding of Android development best practices.
 
 ## Key Features
