@@ -76,7 +76,7 @@ private fun showMessage(message: String, position: String) {
 
 This custom function creates a Toast message with different positioning options. It showcases how to create reusable UI components with customizable behavior.
 
-## Conclusion
+## Summary
 
 These code snippets demonstrate proficiency in Kotlin programming and Android development. They showcase skills in handling permissions, managing UI elements, working with coroutines for background tasks, and creating custom UI components.
 
